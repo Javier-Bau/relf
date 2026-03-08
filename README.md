@@ -7,3 +7,5 @@ The project focuses on understanding the internal structure of ELF files by read
 It also explores how the dynamic linker (ld.so) resolves external symbols by examining ELF structures such as .gnu.hash and .hash, and their relationship with .dynsym, .dynstr, and the .plt/.got mechanisms used for dynamic symbol resolution.
 
 Understanding this symbol resolution process was the main motivation behind developing this ELF analyzer.
+
+To compile the program use: gcc -Iinclude src/main.c src/elf_parser.c -o relf
