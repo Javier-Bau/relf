@@ -1,17 +1,18 @@
 #include <elf.h>
+#include <stdio.h>
 
 // readelf.c function
-static char* get_type_value(unsigned* e_type) {
+char* get_type_value(unsigned e_type) {
     switch(e_type){
-    case ET_NONE:	return "NONE (None)";
-    case ET_REL:	return "REL (Relocatable file)";
-    case ET_EXEC:	return "EXEC (Executable file)";
-    case ET_DYN:	return "DYN (Shared object file)";
-    case ET_CORE:	return "CORE (Core file)";
+        case ET_NONE:	return "NONE (None)";
+        case ET_REL:	return "REL (Relocatable file)";
+        case ET_EXEC:	return "EXEC (Executable file)";
+        case ET_DYN:	return "DYN (Shared object file)";
+        case ET_CORE:	return "CORE (Core file)";
     }
 }
 
-static char* get_version_value(unsigned* e_version) {
+char* get_version_value(unsigned e_version) {
     switch (e_version)
     {
         case EV_NONE: return "0 (Invalid ELF Version)";
@@ -20,7 +21,7 @@ static char* get_version_value(unsigned* e_version) {
     }
 }
 
-static char* get_machine_value(unsigned* e_machine) { 
+char* get_machine_value(unsigned e_machine) { 
 
     static char buff[64];
     switch (e_machine)
@@ -34,7 +35,7 @@ static char* get_machine_value(unsigned* e_machine) {
     }
 }
 
-static char* get_data_value(unsigned* e_data){
+char* get_data_value(unsigned e_data){
     switch (e_data)
     {
         case ELFDATANONE: return "Invalid data encoding";
@@ -45,26 +46,26 @@ static char* get_data_value(unsigned* e_data){
 }
 
 // readelf.c function
-static char* get_osabi_value(unsigned* e_osabi){
-  static char buff[32];
-  switch (e_osabi)
-    {
-    case ELFOSABI_NONE:		  return "UNIX - System V";
-    case ELFOSABI_HPUX:		  return "UNIX - HP-UX";
-    case ELFOSABI_NETBSD:  	  return "UNIX - NetBSD";
-    case ELFOSABI_LINUX:	  return "UNIX - Linux";
-    case ELFOSABI_SOLARIS:    return "UNIX - Solaris";
-    case ELFOSABI_AIX:		  return "UNIX - AIX";
-    case ELFOSABI_IRIX:		  return "UNIX - IRIX";
-    case ELFOSABI_FREEBSD:	  return "UNIX - FreeBSD";
-    case ELFOSABI_TRU64:	  return "UNIX - TRU64";
-    case ELFOSABI_MODESTO:	  return "Novell - Modesto";
-    case ELFOSABI_OPENBSD:	  return "UNIX - OpenBSD";
-    case ELFOSABI_STANDALONE: return"Standalone App";
-    case ELFOSABI_ARM:		  return "ARM";
-    case ELFOSABI_ARM_AEABI:  return "ARM EABI";
-    default:
-      snprintf(buff, sizeof(buff), "<unknown> %x", e_osabi);
-      return buff;
-    }
+char* get_osabi_value(unsigned e_osabi){
+    char buff[32];
+    switch (e_osabi)
+        {
+        case ELFOSABI_NONE:		  return "UNIX - System V";
+        case ELFOSABI_HPUX:		  return "UNIX - HP-UX";
+        case ELFOSABI_NETBSD:  	  return "UNIX - NetBSD";
+        case ELFOSABI_LINUX:	  return "UNIX - Linux";
+        case ELFOSABI_SOLARIS:    return "UNIX - Solaris";
+        case ELFOSABI_AIX:		  return "UNIX - AIX";
+        case ELFOSABI_IRIX:		  return "UNIX - IRIX";
+        case ELFOSABI_FREEBSD:	  return "UNIX - FreeBSD";
+        case ELFOSABI_TRU64:	  return "UNIX - TRU64";
+        case ELFOSABI_MODESTO:	  return "Novell - Modesto";
+        case ELFOSABI_OPENBSD:	  return "UNIX - OpenBSD";
+        case ELFOSABI_STANDALONE: return"Standalone App";
+        case ELFOSABI_ARM:		  return "ARM";
+        case ELFOSABI_ARM_AEABI:  return "ARM EABI";
+        default:
+        snprintf(buff, sizeof(buff), "<unknown> %x", e_osabi);
+        return buff;
+        }
 }

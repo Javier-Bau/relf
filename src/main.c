@@ -4,6 +4,7 @@
 #include <stdint.h> 
 #include <getopt.h>
 #include <string.h>
+#include <elf.h>
 
 #include "elf_parser.h"
 
@@ -62,27 +63,27 @@ void print_header() {
         fprintf(stdout, "  Magic Number:");
         print_magic(elf32_header.e_ident);  
         fprintf(stdout, "  Clase: ELF32\n");
-        fprintf(stdout, "  Data Format: %s\n", get_data_value(&elf32_header.e_ident[EI_DATA]));
-        fprintf(stdout, "  OS/ABI: %s\n", get_osabi_value(&elf32_header.e_ident[EI_OSABI]));
+        fprintf(stdout, "  Data Format: %s\n", get_data_value(elf32_header.e_ident[EI_DATA]));
+        fprintf(stdout, "  OS/ABI: %s\n", get_osabi_value(elf32_header.e_ident[EI_OSABI]));
         fprintf(stdout, "  ABI Version: %u\n", elf32_header.e_ident[EI_ABIVERSION]);
 
-        fprintf(stdout, "  Type: %s\n", get_type_value(&elf32_header.e_type));
-        fprintf(stdout, "  Version: %s\n", get_version_value(&elf32_header.e_version));
-        fprintf(stdout, "  Machine: %s\n", get_machine_value(&elf32_header.e_machine));
+        fprintf(stdout, "  Type: %s\n", get_type_value(elf32_header.e_type));
+        fprintf(stdout, "  Version: %s\n", get_version_value(elf32_header.e_version));
+        fprintf(stdout, "  Machine: %s\n", get_machine_value(elf32_header.e_machine));
         fprintf(stdout, "  Entry Point: 0x%04x\n", elf32_header.e_entry);
     }else{
         fprintf(stdout, "Header ELF:\n");
         fprintf(stdout, "  Magic Number:");
         print_magic(elf64_header.e_ident);   
         fprintf(stdout, "  Clase: ELF64\n");
-        fprintf(stdout, "  Data Format: %s\n", get_data_value(&elf64_header.e_ident[EI_DATA]));
-        fprintf(stdout, "  OS/ABI: %s\n", get_osabi_value(&elf64_header.e_ident[EI_OSABI]));
+        fprintf(stdout, "  Data Format: %s\n", get_data_value(elf64_header.e_ident[EI_DATA]));
+        fprintf(stdout, "  OS/ABI: %s\n", get_osabi_value(elf64_header.e_ident[EI_OSABI]));
         fprintf(stdout, "  ABI Version: %u\n", elf64_header.e_ident[EI_ABIVERSION]);
 
 
-        fprintf(stdout, "  Type: %s\n", get_type_value(&elf64_header.e_type));
-        fprintf(stdout, "  Version: %s\n", get_version_value(&elf64_header.e_version));
-        fprintf(stdout, "  Machine: %s\n", get_machine_value(&elf64_header.e_machine));
+        fprintf(stdout, "  Type: %s\n", get_type_value(elf64_header.e_type));
+        fprintf(stdout, "  Version: %s\n", get_version_value(elf64_header.e_version));
+        fprintf(stdout, "  Machine: %s\n", get_machine_value(elf64_header.e_machine));
         fprintf(stdout, "  Entry Point: 0x%04x\n", elf64_header.e_entry);
     }
 }
